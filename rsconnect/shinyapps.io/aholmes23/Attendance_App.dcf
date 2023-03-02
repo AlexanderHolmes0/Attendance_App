@@ -1,0 +1,13 @@
+name: Attendance_App
+title: Attendance_App
+username:
+account: aholmes23
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8452262
+bundleId: 6904901
+url: https://aholmes23.shinyapps.io/Attendance_App/
+when: 1677719158.41659
+lastSyncTime: 1677719158.41662
+asMultiple: FALSE
+asStatic: FALSE
