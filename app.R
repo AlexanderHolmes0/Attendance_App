@@ -1,4 +1,3 @@
-
 library(shiny)
 library(fpp3)
 library(plotly)
@@ -18,7 +17,10 @@ ui <- dashboardPage(title="Adam Dash",
   dashboardHeader(title = "Adam Dash"),
   skin = 'green',
   dashboardSidebar(minified = F, collapsed = T,tags$img(src='Adam.jpg', width = "230px",height='230px'),
-                   textOutput('text')),
+                   textOutput('text'),
+                   menuItem("Adam Github",href = "https://github.com/AdamSpannbauer"),
+                   menuItem("Creator Github", href = "https://github.com/AlexanderHolmes0")),
+                   
   dashboardBody(fluidRow(valueBoxOutput('overall'), valueBoxOutput('overallbas475'), valueBoxOutput('overallbas479')),
     fluidRow(
     box(plotlyOutput("Bas475"),  title = "BAS 475 Section: 1", background = 'maroon', collapsible = T),
@@ -32,9 +34,11 @@ ui <- dashboardPage(title="Adam Dash",
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
+  
   output$text <- renderText({
     paste0("Wizard")
   })
+  
   output$overall <- renderValueBox({
     valueBox(
       paste0(round(mean(class_attend$attendance, na.rm = T))), "Avg. Overall Attendance", icon = icon("list"),
@@ -72,6 +76,16 @@ server <- function(input, output) {
       fill_gaps() %>% 
      update_tsibble(regular = T) %>% 
       mutate(attendance = na.approx(attendance, na.rm=F))
+   
+   
+   
+   fit <- data %>% 
+     model(SNAIVE(attendance ~ drift()))
+   
+   fit %>% 
+     forecast(h=10) %>% 
+     autoplot(data)+
+     geom_hline(yintercept = mean(data$attendance,na.rm = T), color = 'red',alpha=.7)
    
       autoplot(data,attendance)+
      geom_hline(yintercept = mean(data$attendance,na.rm = T), color = 'red',alpha=.7)+
