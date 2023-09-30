@@ -11,7 +11,6 @@ class_attend <- read.csv(gsheets_url)
 class_attend <- class_attend %>% 
   select(date,class, section, attendance)
 
-
 ui <- dashboardPage(title="Adam Dash",
 
   dashboardHeader(title = "Adam Dash"),
